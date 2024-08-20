@@ -11,4 +11,7 @@ after_success:
   - docker build -t scargile55/multi-nginx ./nginx
   - docker build -t scargile55/multi-server ./multi-server
   - docker build -t scargile55/multi-worker ./worker
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin
+  - docker push scargile55/multi-client
+  - docker push scargile55/multi-server
+  - docker push scargile55/multi-worker
