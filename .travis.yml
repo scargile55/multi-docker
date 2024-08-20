@@ -1,0 +1,14 @@
+---
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t scargile55/react-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run -e CI=true scargile55/react-test npm test
+after_success:
+  - docker build -t scargile55/multi-client ./client
+  - docker build -t scargile55/multi-nginx ./nginx
+  - docker build -t scargile55/multi-server ./multi-server
+  - docker build -t scargile55/multi-worker ./worker
+
